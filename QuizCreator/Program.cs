@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using QuizCreator.Models.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+string connString = builder.Configuration.GetConnectionString("QUIZ_CREATOR_DB") ?? string.Empty;
+builder.Services.AddDbContext<QuizDbContext>(options => options.UseSqlServer(connString));
 
 var app = builder.Build();
 
