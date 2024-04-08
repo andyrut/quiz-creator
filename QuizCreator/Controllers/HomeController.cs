@@ -1,3 +1,4 @@
+#region Using Directives
 using Microsoft.AspNetCore.Mvc;
 using QuizCreator.Models;
 using System.Diagnostics;
@@ -5,6 +6,7 @@ using CSharpVitamins;
 using QuizCreator.Models.Database;
 using QuizCreator.Models.Home;
 using QuizCreator.Quiz;
+#endregion
 
 namespace QuizCreator.Controllers
 {
@@ -32,21 +34,41 @@ namespace QuizCreator.Controllers
         [Route("/create")]
         public IActionResult Create()
         {
-            var quizMethods = new QuizMethods(context);
-            var template = quizMethods.CreateTemplate();
-            var templateSguid = ShortGuid.Encode(template.TemplateGuid);
+            try
+            {
+                logger.LogDebug("Called Create method");
 
-            return RedirectToAction("Make", new {templateSguid});
+                var quizMethods = new QuizMethods(context);
+                var template = quizMethods.CreateTemplate();
+                var templateSguid = ShortGuid.Encode(template.TemplateGuid);
+
+                return RedirectToAction("Make", new { templateSguid });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in Create method");
+                throw;
+            }
         }
 
         [Route("/make/{templateSguid}")]
         public IActionResult Make(string templateSguid)
         {
-            var createModel = new CreateModel
+            try
             {
-                TemplateGuid = ShortGuid.Decode(templateSguid)
-            };
-            return View(createModel);
+                logger.LogDebug("Called Make method");
+
+                var createModel = new CreateModel
+                {
+                    TemplateGuid = ShortGuid.Decode(templateSguid)
+                };
+                return View(createModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in Make method");
+                throw;
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
