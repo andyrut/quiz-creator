@@ -29,3 +29,12 @@ body {
 .caps {
     font-size: 50pt;
 }
+
+#app {
+    color: white;
+    font-weight: bold;
+}
+
+#hero {
+    height: unset !important;
+}

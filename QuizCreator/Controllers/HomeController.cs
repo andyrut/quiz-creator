@@ -39,8 +39,8 @@ namespace QuizCreator.Controllers
                 logger.LogDebug("Called Create method");
 
                 var quizMethods = new QuizMethods(context);
-                var template = quizMethods.CreateTemplate();
-                var templateSguid = ShortGuid.Encode(template.TemplateGuid);
+                var templateGuid = quizMethods.CreateTemplate();
+                var templateSguid = ShortGuid.Encode(templateGuid);
 
                 return RedirectToAction("Make", new { templateSguid });
             }

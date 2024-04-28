@@ -3,12 +3,45 @@
     ViewData["Title"] = "Create a Quiz";
 }
 
+<input type="hidden" id="templateGuid" value="@Model.TemplateGuid"/>
+
+
 <section id="hero" class="d-flex">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-10 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1>Template GUID: @Model.TemplateGuid</h1>
+                
+                <div id="app">
+                    
+                    <input type="button" onclick="update()" value="Update" />
+
+                    Quiz Name: <input id="quizName" v-model="template.name" placeholder="My Quiz Name"/>
+                    <br/><br/>
+
+                    Quiz Description: <input id="quizDesc" v-model="template.description" placeholder="My Quiz Description"/>
+                    <br/><br/>
+
+                    <div v-for="(question, q) in template.questions">
+                        Question: <input v-model="question.text" :placeholder="'Question #' + (q+1)"/>
+                        <br/>
+
+                        <div class="bx-left-indent">
+                            <ul>
+                                <li v-for="(answer, a) in question.answers">
+                                    <input v-model="answer.text" :placeholder="'Answer #' + (a+1)"/> <span v-if="answer.correct === true">(Correct)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="~/js/make.js"></script>
+}
