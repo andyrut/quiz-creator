@@ -7,7 +7,7 @@ namespace QuizCreator.Models.Database
     {
         public Guid QuestionGuid { get; set; }
 
-        public string Text { get; set; } = string.Empty;
+        public string Text { get; set; } = "asdf";
 
         public List<Answer> Answers { get; set; } = new List<Answer>();
     }

@@ -38,3 +38,8 @@ body {
 #hero {
     height: unset !important;
 }
+
+.ql-container, .ql-toolbar {
+    background: white;
+    color: black;
+}

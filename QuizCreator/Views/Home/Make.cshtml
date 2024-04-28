@@ -5,7 +5,6 @@
 
 <input type="hidden" id="templateGuid" value="@Model.TemplateGuid"/>
 
-
 <section id="hero" class="d-flex">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -22,10 +21,14 @@
                     <br/><br/>
 
                     <div v-for="(question, q) in template.questions">
-                        Question: <input v-model="question.text" :placeholder="'Question #' + (q+1)"/>
+                        <h2>Question #{{ q + 1 }}:</h2>
+                        <br/>
                         <br/>
 
-                        <div class="bx-left-indent">
+                        <quill-editor v-model:content="question.text" theme="snow" content="html" content-type="html"></quill-editor>
+                        <br/>
+                        
+                        <div>
                             <ul>
                                 <li v-for="(answer, a) in question.answers">
                                     <input v-model="answer.text" :placeholder="'Answer #' + (a+1)"/> <span v-if="answer.correct === true">(Correct)</span>
@@ -42,6 +45,7 @@
 </section>
 
 @section Scripts{
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue%403/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/%40vueup/vue-quill@1.2.0"></script>
     <script src="~/js/make.js"></script>
 }
